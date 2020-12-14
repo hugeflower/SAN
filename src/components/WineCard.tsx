@@ -1,6 +1,6 @@
 import React from "react";
 import Wine from "../model/wine";
-import WineReview from "./reviewCard";
+import WineReview from "./ReviewCard";
 
 interface WineCardProps {
     wine : Wine

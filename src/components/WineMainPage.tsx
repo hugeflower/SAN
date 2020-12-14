@@ -1,24 +1,26 @@
 import React from "react";
 import {loadWinesFromBackend} from "../infrastructure/middleware";
-import WineList from "./wineList";
-import WineStats from "./wineStats";
+import WineList from "./WineList";
+import WineStats from "./WineStats";
 
 interface WinePageState {
-    wines: any
+    wines: any[]
     inWineStatsPage: boolean
 }
 
 class WinePage extends React.Component<{}, WinePageState> {
     constructor() {
-        // @ts-ignore
-        super();
-
-        const wines = loadWinesFromBackend()
+        super({});
 
         this.state = {
-            wines: wines,
+            wines: [],
             inWineStatsPage: true
         }
+    }
+
+    componentDidMount() {
+        const wines = loadWinesFromBackend()
+        this.setState({wines: wines})
     }
 
     toggleView = () => {

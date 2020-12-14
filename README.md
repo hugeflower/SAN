@@ -1,46 +1,28 @@
 # Projet SAN
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Explication des packages
 
-## Available Scripts
+Components : Contient les différents components React. J'ai tout gardé au premier niveau (flat) pour simplifier la lecture, mais évidemment, si le projet allait en grandissant, une arborescence bien planifiée serait de mise.
 
-In the project directory, you can run:
+Infrastructure : La gestion des appels par axios est dans ce package. 
+rest.tsx contient l'appel de axios et la gestion générale des réponses et erreurs (pour le moment très simple). 
+Le fichier middleware.tsx contient les appels avec plus de précisions, comme l'url utilisé et le retour attendu pour créer des fonctions plus explicites.
 
-### `npm start`
+Model : Le projet est fait en Typescript, étant donné que je préfère les langages typés et que j'aime bien avoir du feedback à l'écriture sur les types utilisés et retournés par les fonctions. Ce dossier contient les objets frontend pour rendre encore plus explicite les objets utilisés avec l'aide de Typescript.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Le fichier utils.tsx est tout seul pour le moment et ne contient que la fonction round que j'utilise simplement pour simplifier la lecture. Sa logique me semblait assez réutilisable pour être à part, au lieu d'être dans tous les fichiers qui vont en avoir besoin.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Idée générale
 
-### `npm test`
+Mon but premier était de respecter le plus possible l'idée de la séparation smart-dumb component.
+La WineMainPage va être l'élément principal (smart) qui va englober les deux vues possibles et s'occuper d'appeler le middleware pour avoir l'information du backend et l'envoyer à ses enfants qui vont gérer la logique d'affichage. Dans sa conception "smart", celui-ci va avoir un state (assez petit) qui va consister en les informations du backend (appelées dans son componentDidMount) et d'un booléen pour savoir laquelle des deux vues est visible. Les deux enfants vont simplement recevoir l'information du parent et présenter l'information reçue (dans les props), d'une manière assez unidirectionnelle (ou en franglais, assez straightforward).
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Fonctionnement des components enfants
 
-### `npm run build`
+WineList : Celui-ci va recevoir la liste de vins et mettre chacun d'eux dans une carte qui va éclater les informations et les afficher. La critique a été extraite dans un component pour une éventualité de réutilisation.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+WineStats : Celui-ci va recevoir la liste de vins et appliquer quelques fonctions pour gérer les logiques administratives demandées. J'ai pensé faire un objet carte qui recevrait les informations, mais étant donné que celle du milieu (le nombre de vins de chaque couleur) était assez différent, je me suis dit que ça ne serait pas nécessaire. Par contre, si plusieurs demandes supplémentaires pointent dans cette direction, ça pourrait être une possibilité. La plupart des fonctions du component sont là pour simplifier la lecture de la fonction render, la seule exception étant la fonction totalWineOfEveryType.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Autres
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+J'ai mis des objets Wine dans le middleware pour simplement avoir un peu de feedback visuel en codant. Ça aurait pu être intéressant de faire un feature flag pour "mocker le retour du backend", mais j'avoue que je n'ai pas beaucoup fait de ce genre de chose. Je l'ai laissé pour vous montrer l'idée.

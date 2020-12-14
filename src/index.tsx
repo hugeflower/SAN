@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bulma/css/bulma.css'
-import WinePage from "./components/wineListPage";
+import WinePage from "./components/WineMainPage";
 
 ReactDOM.render(
   <React.StrictMode>
