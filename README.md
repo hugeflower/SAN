@@ -1,4 +1,4 @@
-# Projet SAN
+# Projet Société des alcools de Nexapp
 
 ## Explication des packages
 
