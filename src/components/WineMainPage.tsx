@@ -1,10 +1,11 @@
 import React from "react";
-import {loadWinesFromBackend} from "../infrastructure/middleware";
+import {loadWinesFromBackend} from "../infrastructure/rest";
 import WineList from "./WineList";
 import WineStats from "./WineStats";
+import Wine from "../model/wine";
 
 interface WinePageState {
-    wines: any[]
+    wines: Wine[]
     inWineStatsPage: boolean
 }
 
@@ -19,7 +20,7 @@ class WinePage extends React.Component<{}, WinePageState> {
     }
 
     componentDidMount() {
-        const wines = loadWinesFromBackend()
+        const wines: Wine[] = loadWinesFromBackend()
         this.setState({wines: wines})
     }
 

@@ -5,8 +5,7 @@
 Components : Contient les différents components React. J'ai tout gardé au premier niveau (flat) pour simplifier la lecture, mais évidemment, si le projet allait en grandissant, une arborescence bien planifiée serait de mise.
 
 Infrastructure : La gestion des appels par axios est dans ce package. 
-rest.tsx contient l'appel de axios et la gestion générale des réponses et erreurs (pour le moment très simple). 
-Le fichier middleware.tsx contient les appels avec plus de précisions, comme l'url utilisé et le retour attendu pour créer des fonctions plus explicites.
+rest.tsx contient l'appel de axios et les précisions, comme l'url utilisé et le retour attendu pour créer des fonctions plus explicites.
 
 Model : Le projet est fait en Typescript, étant donné que je préfère les langages typés et que j'aime bien avoir du feedback à l'écriture sur les types utilisés et retournés par les fonctions. Ce dossier contient les objets frontend pour rendre encore plus explicite les objets utilisés avec l'aide de Typescript.
 
@@ -21,8 +20,10 @@ La WineMainPage va être l'élément principal (smart) qui va englober les deux 
 
 WineList : Celui-ci va recevoir la liste de vins et mettre chacun d'eux dans une carte qui va éclater les informations et les afficher. La critique a été extraite dans un component pour une éventualité de réutilisation.
 
-WineStats : Celui-ci va recevoir la liste de vins et appliquer quelques fonctions pour gérer les logiques administratives demandées. J'ai pensé faire un objet carte qui recevrait les informations, mais étant donné que celle du milieu (le nombre de vins de chaque couleur) était assez différent, je me suis dit que ça ne serait pas nécessaire. Par contre, si plusieurs demandes supplémentaires pointent dans cette direction, ça pourrait être une possibilité. La plupart des fonctions du component sont là pour simplifier la lecture de la fonction render, la seule exception étant la fonction totalWineOfEveryType.
+WineStats : Celui-ci va recevoir la liste de vins et appliquer quelques fonctions pour gérer les logiques administratives demandées. J'ai pensé faire un objet carte qui recevrait les informations, mais étant donné que celle du milieu (le nombre de vins de chaque couleur) était assez différent, je me suis dit que ça ne serait pas nécessaire. Par contre, si plusieurs demandes supplémentaires pointent dans cette direction, ça pourrait être une possibilité. La plupart des fonctions du component sont là pour simplifier la lecture de la fonction render.
 
 ## Autres
 
 J'ai mis des objets Wine dans le middleware pour simplement avoir un peu de feedback visuel en codant. Ça aurait pu être intéressant de faire un feature flag pour "mocker le retour du backend", mais j'avoue que je n'ai pas beaucoup fait de ce genre de chose. Je l'ai laissé pour vous montrer l'idée.
+
+L'appel au backend dans le fichier WineMainPage.tsx attend une array de any, j'avoue que c'est particulier étant donné que le reste est typé. Simplement, j'avoue que je ne sais pas trop comment "caster" la réponse en un objet de mon package Model. Dans mon projet actuel, on utilise React-Redux qui avec mapDispatchToProps va appeler la fonction qui va remplir le store, qu'on va aller chercher avec le mapStateToProps. Je ne l'ai pas mis en place, donc je ne pourrais pas vraiment le faire pour ce projet. C'est un peu le même genre de fonctionnement que je voulais imiter, mais je ne savais pas le faire sans mettre de any à la liste. 
