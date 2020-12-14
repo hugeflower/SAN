@@ -1,4 +1,4 @@
-import Wine, {emptyWine} from "../model/wine";
+import Wine from "../model/wine";
 import axios from "axios";
 
 const urlForWine:string = "https://api.mocki.io/v1/6123babb"

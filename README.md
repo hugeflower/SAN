@@ -4,7 +4,7 @@
 
 Components : Contient les différents components React. J'ai tout gardé au premier niveau (flat) pour simplifier la lecture, mais évidemment, si le projet allait en grandissant, une arborescence bien planifiée serait de mise.
 
-Infrastructure : La gestion des appels par axios est dans ce package. 
+Infrastructure : La gestion des appels rest est dans ce package. 
 rest.tsx contient l'appel de axios et les précisions, comme l'url utilisé et le retour attendu pour créer des fonctions plus explicites.
 
 Model : Le projet est fait en Typescript, étant donné que je préfère les langages typés et que j'aime bien avoir du feedback à l'écriture sur les types utilisés et retournés par les fonctions. Ce dossier contient les objets frontend pour rendre encore plus explicite les objets utilisés avec l'aide de Typescript.
@@ -14,7 +14,7 @@ Le fichier utils.tsx est tout seul pour le moment et ne contient que la fonction
 ## Idée générale
 
 Mon but premier était de respecter le plus possible l'idée de la séparation smart-dumb component.
-La WineMainPage va être l'élément principal (smart) qui va englober les deux vues possibles et s'occuper d'appeler le middleware pour avoir l'information du backend et l'envoyer à ses enfants qui vont gérer la logique d'affichage. Dans sa conception "smart", celui-ci va avoir un state (assez petit) qui va consister en les informations du backend (appelées dans son componentDidMount) et d'un booléen pour savoir laquelle des deux vues est visible. Les deux enfants vont simplement recevoir l'information du parent et présenter l'information reçue (dans les props), d'une manière assez unidirectionnelle (ou en franglais, assez straightforward).
+La WineMainPage va être l'élément principal (smart) qui va englober les deux vues possibles et s'occuper d'appeler le middleware pour avoir l'information du backend et l'envoyer à ses enfants (dumb) qui vont gérer la logique d'affichage. Dans sa conception "smart", la page principale va avoir un state (assez petit) qui va consister en les informations du backend (appelées dans son componentDidMount) et d'un booléen pour savoir laquelle des deux vues est visible. Les deux enfants vont simplement recevoir l'information du parent et présenter l'information reçue (dans les props), d'une manière assez unidirectionnelle (ou en franglais, assez straightforward).
 
 ## Fonctionnement des components enfants
 
@@ -24,6 +24,4 @@ WineStats : Celui-ci va recevoir la liste de vins et appliquer quelques fonction
 
 ## Autres
 
-J'ai mis des objets Wine dans le middleware pour simplement avoir un peu de feedback visuel en codant. Ça aurait pu être intéressant de faire un feature flag pour "mocker le retour du backend", mais j'avoue que je n'ai pas beaucoup fait de ce genre de chose. Je l'ai laissé pour vous montrer l'idée.
-
-L'appel au backend dans le fichier WineMainPage.tsx attend une array de any, j'avoue que c'est particulier étant donné que le reste est typé. Simplement, j'avoue que je ne sais pas trop comment "caster" la réponse en un objet de mon package Model. Dans mon projet actuel, on utilise React-Redux qui avec mapDispatchToProps va appeler la fonction qui va remplir le store, qu'on va aller chercher avec le mapStateToProps. Je ne l'ai pas mis en place, donc je ne pourrais pas vraiment le faire pour ce projet. C'est un peu le même genre de fonctionnement que je voulais imiter, mais je ne savais pas le faire sans mettre de any à la liste. 
+J'ai mis des objets Wine dans le fichier rest pour simplement avoir un peu de feedback visuel en codant. Ça aurait pu être intéressant de faire un feature flag pour "mocker le retour du backend", mais j'avoue que je n'ai pas beaucoup fait de ce genre de chose. Je l'ai laissé pour vous montrer l'idée.
